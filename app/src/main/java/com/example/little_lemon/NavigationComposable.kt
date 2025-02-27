@@ -13,24 +13,23 @@ import com.example.littlelemon.ProfileScreen
 fun MyNavigation() {
     val navController = rememberNavController()
 
-    // Check if user is already registered (i.e., has data in SharedPreferences)
     val context = LocalContext.current
     val sharedPrefs = context.getSharedPreferences("LittleLemon", Context.MODE_PRIVATE)
 
     val isUserLoggedIn = sharedPrefs.getString("firstName", "").isNullOrBlank().not()
-    val startDestination = if (isUserLoggedIn) Home.route else onboarding.route
+    val startDestination = if (isUserLoggedIn) "home" else "onboarding"  // Use string literals
 
     NavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(onboarding.route) {
+        composable("onboarding") {  // Use string literals
             OnboardingScreen(navController = navController)
         }
-        composable(Home.route) {
+        composable("home") {  // Use string literals
             HomeScreen(navController = navController)
         }
-        composable(Profile.route) {
+        composable("profile") {
             ProfileScreen(navController = navController)
         }
     }
